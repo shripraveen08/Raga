@@ -1,0 +1,92 @@
+{
+  "name": "raga",
+  "version": "1.0.0",
+  "description": "A cross-platform YouTube music player built with Electron + React",
+  "main": "dist/main/index.js",
+  "author": "Your Name",
+  "license": "MIT",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build && cp -r out/ dist/",
+    "preview": "electron-vite preview",
+    "package": "npm run build && electron-builder --publish=always",
+    "package:win": "npm run build && electron-builder --win --publish=always",
+    "package:mac": "npm run build && electron-builder --mac --publish=always",
+    "package:linux": "npm run build && electron-builder --linux --publish=always",
+    "android:build": "npm run build && npx cap sync android",
+    "android:open": "npx cap open android",
+    "android:run": "npm run android:build && npx cap run android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.1",
+    "@capacitor/cli": "^8.3.1",
+    "@capacitor/core": "^8.3.1",
+    "@electron-toolkit/utils": "^4.0.0",
+    "better-sqlite3": "^9.4.3",
+    "electron-updater": "^6.1.8",
+    "howler": "^2.2.4",
+    "lucide-react": "^0.363.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "uuid": "^9.0.1",
+    "youtube-sr": "^4.3.10",
+    "ytdl-core": "^4.11.5",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/howler": "^2.2.11",
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.23",
+    "@types/uuid": "^9.0.8",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "electron": "^29.1.4",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.0.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.6"
+  },
+  "build": {
+    "appId": "com.raga.musicplayer",
+    "productName": "Raga",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "resources/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "resources/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "resources/icon.icns",
+      "category": "public.app-category.music"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "resources/icon.png",
+      "category": "Audio"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "shripraveen08",
+      "repo": "Raga"
+    }
+  }
+}
