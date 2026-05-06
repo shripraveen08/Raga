@@ -34,8 +34,13 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v3
       
+    - name: Clear npm cache
+      run: npm cache clean --force
+      
     - name: Install dependencies
-      run: npm install --legacy-peer-deps
+      run: |
+        rm -rf node_modules package-lock.json
+        npm install --legacy-peer-deps
       
     - name: Build web app
       run: npm run build
@@ -101,8 +106,13 @@ jobs:
         node-version: '22'
         cache: 'npm'
         
+    - name: Clear npm cache
+      run: npm cache clean --force
+      
     - name: Install dependencies
-      run: npm install --legacy-peer-deps
+      run: |
+        rm -rf node_modules package-lock.json
+        npm install --legacy-peer-deps
       
     - name: Build application
       run: npm run build
