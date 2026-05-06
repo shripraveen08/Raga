@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Raga</string>
+    <string name="title_activity_main">Raga</string>
+    <string name="package_name">com.raga.musicplayer</string>
+    <string name="custom_url_scheme">com.raga.musicplayer</string>
+</resources>

@@ -20,19 +20,18 @@ release/
 *.AppImage
 
 # Capacitor
-android/
 ios/
 *.keystore
 *.jks
 
-# Android specific
+# Android - keep source, ignore builds
 android/app/build/
 android/app/release/
 android/app/debug/
 android/.gradle/
-android/app/build/
 android/local.properties
 android/captabilities.json
+android/build/
 
 # Java
 *.class

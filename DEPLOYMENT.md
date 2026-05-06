@@ -1,71 +1,113 @@
-# Raga - Deployment Guide
+# Raga - Deployment Guide (OuterTune Style)
 
-## 📱 Distribution Options
+## 📱 GitHub APK Distribution (Like OuterTune)
 
-### 1. Desktop App (GitHub Releases)
+### 🚀 Automatic APK Releases
 
-**Automatic Releases:**
+**Just like OuterTune, create a tag to auto-release:**
 ```bash
-# Create a new tag to trigger release
+# Create version tag (triggers GitHub Actions)
 git tag v1.0.0
 git push origin v1.0.0
 ```
 
-**Manual Release:**
-```bash
-# Build for all platforms
-npm run package
+**What happens automatically:**
+1. ✅ GitHub Actions builds APK (Debug + Release)
+2. ✅ Creates GitHub Release with APK files
+3. ✅ Uploads artifacts for download
+4. ✅ Generates release notes automatically
 
-# Build for specific platform
-npm run package:mac    # macOS
-npm run package:win    # Windows  
-npm run package:linux  # Linux
+### 📥 Download APK from GitHub
+
+**Method 1: Releases Tab (Recommended)**
+1. Go to your repository → **Releases**
+2. Click on latest release (e.g., v1.0.0)
+3. Download:
+   - `app-debug.apk` (For testing)
+   - `app-release.apk` (Signed, for distribution)
+
+**Method 2: Actions Artifacts**
+1. Go to **Actions** tab → Workflow runs
+2. Click on latest run
+3. Download `raga-debug-apk` or `raga-release-apk`
+
+### 🔧 Manual APK Build
+
+**For development/testing:**
+```bash
+# Build web app + sync to Android
+npm run android:build
+
+# Build APK locally
+cd android
+./gradlew assembleDebug    # Debug APK
+./gradlew assembleRelease  # Release APK (needs signing)
 ```
 
-**Release files will be in `release/` directory:**
+**APK Location:**
+- Debug: `android/app/build/outputs/apk/debug/app-debug.apk`
+- Release: `android/app/build/outputs/apk/release/app-release.apk`
+
+### 📱 Install on Android Device
+
+**Option 1: ADB Install**
+```bash
+# Enable USB debugging on Android device
+adb install android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+**Option 2: Direct Install**
+```bash
+# Run directly on connected device
+npm run android:run
+```
+
+**Option 3: GitHub Download**
+1. Download APK from GitHub Releases
+2. Transfer to Android device
+3. Install (Allow unknown sources)
+
+## �️ Desktop App Distribution
+
+**Automatic Releases (Same as Android):**
+```bash
+# Tag triggers both desktop + Android builds
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+**Manual Desktop Build:**
+```bash
+# Build for current platform
+npm run package
+
+# Platform-specific builds
+npm run package:mac    # macOS (.dmg, .zip)
+npm run package:win    # Windows (.exe, portable)
+npm run package:linux  # Linux (.AppImage, .deb)
+```
+
+**Desktop Release Files:**
 - `Raga-1.0.0.dmg` (macOS)
 - `Raga Setup 1.0.0.exe` (Windows)
 - `Raga-1.0.0.AppImage` (Linux)
 - `raga_1.0.0_amd64.deb` (Linux)
 
-### 2. Android APK
+## 🚀 GitHub Actions (OuterTune Style)
 
-**Prerequisites:**
-- Android Studio installed
-- Android SDK configured
+**Professional CI/CD Pipeline:**
+- **Triggers**: Version tags (`v*`), pull requests, manual
+- **Builds**: Android APK (Debug + Release) + Desktop apps
+- **Releases**: Automatic GitHub releases with proper assets
+- **Artifacts**: Available for download from Actions tab
 
-**Build APK:**
-```bash
-# Build and sync web assets
-npm run android:build
-
-# Open Android Studio
-npm run android:open
-
-# Or build APK directly
-cd android
-./gradlew assembleDebug
-```
-
-**APK Location:**
-`android/app/build/outputs/apk/debug/app-debug.apk`
-
-**Install on Device:**
-```bash
-# Install via ADB
-adb install android/app/build/outputs/apk/debug/app-debug.apk
-
-# Or run directly
-npm run android:run
-```
-
-## 🚀 GitHub Actions
-
-The project includes automated builds via GitHub Actions:
-
-1. **Tag a release:** `git tag v1.0.0 && git push origin v1.0.0`
-2. **Automatic builds:** Desktop apps for all platforms + Android APK
-3. **Download:** Releases appear in GitHub Releases tab
+**Workflow Features:**
+- ✅ Java 17 + Android SDK setup
+- ✅ Node.js caching for faster builds
+- ✅ Gradle build optimization
+- ✅ Automatic version synchronization
+- ✅ Release APK signing (with secrets)
+- ✅ Professional release notes generation
 
 ## 📋 Distribution Checklist
 

@@ -13,7 +13,7 @@
     "package:win": "npm run build && electron-builder --win --publish=always",
     "package:mac": "npm run build && electron-builder --mac --publish=always",
     "package:linux": "npm run build && electron-builder --linux --publish=always",
-    "android:build": "npm run build && npx cap sync android",
+    "android:build": "npm run build && npx cap sync android && node scripts/sync-version.js",
     "android:open": "npx cap open android",
     "android:run": "npm run android:build && npx cap run android"
   },
